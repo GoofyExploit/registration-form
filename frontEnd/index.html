@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Registration Form </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form>
+        <div class="user-details">
+            <div class="input-box name">
+                <span class="details">Full Name</span>
+                <input type="text" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="input-box username">
+                <span class="details">Username</span>
+                <input type="text" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-box email">
+                <span class="details">Email</span>
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-box phone">
+                <span class="details">Phone Number</span>
+                <input type="text" name="phone" placeholder="Enter your number" required>
+            </div>
+            <div class="input-box passwd">
+                <span class="details">Password</span>
+                <input type="password" name="passwd" placeholder="Enter your password" required>
+            </div>
+            <div class="input-box cpasswd">
+                <span class="details">Confirm Password</span>
+                <input type="password" name="cpasswd" placeholder="Confirm your password" required>
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Register">
+        </div>
+    </form>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.querySelector(".button input");
+
+    btn.addEventListener("click", function(event) {
+        event.preventDefault(); 
+
+        const name = document.querySelector(".name input").value;
+        const uname = document.querySelector(".username input").value;
+        const email = document.querySelector(".email input").value;
+        const phone = document.querySelector(".phone input").value;
+        const passwd = document.querySelector(".passwd input").value;
+        const cpasswd = document.querySelector(".cpasswd input").value;
+
+        const data = {
+            name: name,
+            username: uname,
+            email: email,
+            phone: phone,
+            passwd: passwd,
+            cpasswd: cpasswd
+        };
+
+        console.log("Sending data:", data);
+
+        fetch('http://localhost:5000/saveData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data) 
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+
+  <script src="../backEnd/index.js"></script>
+</body>
+</html>
